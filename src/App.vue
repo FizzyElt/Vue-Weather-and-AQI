@@ -1,28 +1,85 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <transition name="fade">
+      <div class="loading-container" v-if="this.$store.state.isLoading">
+        <div class="loading">
+          <div class="circle"></div>
+          <h3>Loading . . .</h3>
+        </div>
+      </div>
+    </transition>
+    <router-view />
   </div>
 </template>
-
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
-  name: 'app',
-  components: {
-    HelloWorld
+  
+  methods: {
+    getWeatherData() {
+      const url =
+        "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=" +
+        this.$store.state.weatherToken;
+      this.axios
+        .get(url)
+        .then(res => {
+          this.$store.commit("weatherDataUpdate", res.data.records.location);
+          this.$store.commit('loadingSwich',false);
+        })
+        .catch(err => {
+          alert("取得資料時發生錯誤");
+          this.$store.commit('loadingSwich',false);
+        });
+    }
+  },
+  created() {
+    this.getWeatherData();
+  }
+};
+</script>
+<style lang="scss" scoped>
+#app{
+  width: 100%;
+  height: fit-content;
+  padding-bottom: 20px;
+  background-color: $bluegrotto;
+  min-height: 100vh;
+}
+.loading-container {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.8);
+}
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  .circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 8px solid white;
+    border-left: 8px solid rgba(0, 0, 0, 0);
+    border-right: 8px solid rgba(0, 0, 0, 0);
+    margin-bottom: 10px;
+    animation: loadingAnimation 1s linear infinite;
+  }
+  h3 {
+    color: rgb(255, 255, 255);
   }
 }
-</script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+@keyframes loadingAnimation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 </style>
