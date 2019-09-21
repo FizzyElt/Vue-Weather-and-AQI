@@ -8,7 +8,7 @@ export default new Vuex.Store({
     isLoading:true,
     weatherToken:'CWB-7119ECA8-257C-4ECF-ADF1-86E97EAE5463',
     weatherData:[],
-    currentLocation:"新北市"
+    currentLocation:"臺北市"
   },
   mutations: {
     weatherDataUpdate(state,data=[]){

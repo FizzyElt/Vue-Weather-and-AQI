@@ -15,6 +15,7 @@ export default {};
 .nav-bar {
   background-color: $white;
   padding: 10px 20px;
+  height: 60px;
   *{
     color:$navyblue;
   }

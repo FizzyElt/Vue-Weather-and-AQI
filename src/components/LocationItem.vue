@@ -36,7 +36,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .item{
-    width: 250px;
+    min-width: 250px;
     height: 60px;
     border-radius: 8px;
     margin: 5px 5px;
@@ -61,4 +61,5 @@ export default {
         color:$navyblue;
     }
 }
+
 </style>

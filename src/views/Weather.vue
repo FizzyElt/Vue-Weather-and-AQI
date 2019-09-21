@@ -24,11 +24,20 @@ export default {
 .weather{
   width: 100%;
   height: fit-content;
+  
 }
 .content{
+  position: relative;
   display: flex;
   margin: 25px;
   justify-content: space-between;
   align-items: flex-start;
+}
+@media screen and (max-width:930px){
+.content{
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 }
 </style>
