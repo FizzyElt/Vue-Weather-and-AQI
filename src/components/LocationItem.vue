@@ -27,7 +27,7 @@ export default {
         }
     },
     methods:{
-        locationHandler(){
+        locationHandler(){ //城市切換
             this.$store.commit('locationChange',this.locationName);
         }
     }

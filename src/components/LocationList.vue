@@ -76,7 +76,7 @@ export default {
 .mobile {
   position: relative;
 }
-.mobile-btn {
+.mobile-btn {  //手機版才出現
   display: none;
   position: absolute;
   width: 40px;
@@ -105,7 +105,6 @@ export default {
     top: 0px;
     left: 0;
   }
-  
   .mobile {
     position: absolute;
     top: -26px;
