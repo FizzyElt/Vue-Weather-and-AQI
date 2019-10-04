@@ -19,6 +19,7 @@
     "sass-loader": "^8.0.0",
     "vue": "^2.6.10",
     "vue-axios": "^2.1.4",
+    "vue-jsonp": "^0.1.8",
     "vue-router": "^3.0.3",
     "vuex": "^3.0.1"
   },
