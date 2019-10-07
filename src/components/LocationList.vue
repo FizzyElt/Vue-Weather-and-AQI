@@ -46,7 +46,7 @@ export default {
 
       return list;
     },
-    screenWidth() {
+    screenWidth() { //手機畫面判斷
       const w = document.documentElement.clientWidth;
       if (w < 600 || this.mobileSw) {
         return this.mobileSw;

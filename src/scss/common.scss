@@ -29,6 +29,14 @@
   opacity: 0;
   transform: translateY(-60px);
 }
+.scale-enter-active,
+.scale-leave-active{
+  transition: 0.3s;
+}
+.scale-enter,.scale-leave-to{
+  transform: scale(0);
+  opacity: 0;
+}
 @media screen and (max-width:400px){
   
 }
