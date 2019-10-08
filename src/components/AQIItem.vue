@@ -1,14 +1,14 @@
 <template>
-    <li class="card-item">
+    <li class="card-item" @click="sendId">
         <div class="left-content">
             <h1>{{obj.County}}</h1>
-            <h3>{{obj.SiteName}}</h3>
+            <h2>{{obj.SiteName}}</h2>
         </div>
         
         <div class="right-content">
-            <h1>
+            <h2>
                 {{obj.AQI}}
-            </h1>
+            </h2>
             <span class="light" :class="[colorCheck]">
             </span>
         </div>
@@ -19,7 +19,9 @@ export default {
     props:{
         obj:{
             type:Object,
-            default:{}
+            default:function(){
+                return {}
+            }
         }
     } ,
     computed:{
@@ -41,7 +43,13 @@ export default {
                 return 'close'
             }
         }
-    }   
+    } ,
+    methods:{
+        sendId(){
+            console.log('send')
+            this.$emit('sendId',this.obj.SiteId);
+        }
+    } 
 }
 </script>
 <style lang="scss" scoped>
@@ -51,7 +59,7 @@ export default {
     padding: 5px 20px;
     border-radius: 8px;
     background-color: $babyblue;
-    width: 270px;
+    width: 240px;
     justify-content: space-between;
     color: $navyblue;
     margin: 10px;
@@ -70,14 +78,15 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    h1{
+    h2{
         margin-right: 15px;
+        font-size: 25px;
     }
 }
 .light{
     display: block;
-        width: 20px;
-        height: 20px;
+        width: 30px;
+        height: 30px;
         border-radius: 50%;
 }
 .close{

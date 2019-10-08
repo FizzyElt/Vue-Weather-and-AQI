@@ -2,45 +2,56 @@
   <div class="AQI">
     <nav-bar />
     <nav class="control-nav">
-      <color-introduction/>
-      <search-input v-on:searchTxt="inputChange"/>
+      <color-introduction />
+      <search-input v-on:searchTxt="inputChange" />
     </nav>
-    
-       
-    <div class="AQI-container">
+
+    <div class="main-content">
+      <div class="AQI-container">
         <transition-group name="scale" tag="ul">
-          <AQIItem v-for="item in AQIList" :key="item.SiteId" :obj="item"/>
+          <AQIItem v-for="item in AQIList" :key="item.SiteId" :obj="item" v-on:sendId="siteChange"/>
         </transition-group>
+      </div>
+      <a-q-i-detail-card :AQIObj="AQIDetail" />
     </div>
-    
   </div>
 </template>
 <script>
 import NavBar from "../components/NavBar.vue";
-import ColorIntroduction from '../components/ColorIntroduction.vue'
-import SearchInput from '../components/SearchInput.vue'
-import AQIItem from '../components/AQIItem';
+import ColorIntroduction from "../components/ColorIntroduction.vue";
+import SearchInput from "../components/SearchInput.vue";
+import AQIItem from "../components/AQIItem";
+import AQIDetailCard from "../components/AQIDetailCard.vue";
 export default {
   components: {
     NavBar,
     ColorIntroduction,
     SearchInput,
-    AQIItem
+    AQIItem,
+    AQIDetailCard
   },
-  data(){
-    return{
-      inputTxt:''
-    }
+  data() {
+    return {
+      inputTxt: "",
+      siteId: "",
+      detailOpened: false
+    };
   },
-  computed:{
-    AQIList(){
-      if(this.inputTxt!==''){
-        let list=this.$store.state.AQIData;
-        return list.filter((i)=>{
-          return i.County.indexOf(this.inputTxt)!==-1;
-        })
+  computed: {
+    AQIList() {
+      if (this.inputTxt !== "") {
+        let list = this.$store.state.AQIData;
+        return list.filter(i => {
+          return i.County.indexOf(this.inputTxt) !== -1;
+        });
       }
       return this.$store.state.AQIData;
+    },
+    AQIDetail() {
+      if (this.siteId !== "") {
+        return this.$store.state.AQIData.find(d => d.SiteId === this.siteId);
+      }
+      return this.$store.state.AQIData[0];
     }
   },
   methods: {
@@ -51,7 +62,12 @@ export default {
       )
         .then(res => {
           //console.log(res);
-          this.$store.commit("AQIDataUpdate", res.sort((a,b)=>a.County<b.County?1:-1));
+          this.$store.commit(
+            "AQIDataUpdate",
+            res.sort((a, b) =>
+              parseInt(a.SiteId) > parseInt(b.SiteId) ? 1 : -1
+            )
+          );
           //this.AQIList=res;
           this.$store.commit("loadingSwich", false);
         })
@@ -60,8 +76,12 @@ export default {
           alert("取得資料時發生錯誤");
         });
     },
-    inputChange(txt){
-      this.inputTxt=txt;
+    inputChange(txt) {
+      this.inputTxt = txt;
+    },
+    siteChange(id){
+      console.log('change')
+      this.siteId=id;
     }
   },
   created() {
@@ -70,22 +90,36 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.control-nav{
+.control-nav {
   display: flex;
-  margin:20px 0;
+  margin: 20px 0;
   align-items: center;
   justify-content: center;
 }
-.AQI-container{
-  ul{
+.main-content{
+  max-width:1300px;
+  margin: auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+}
+.AQI-container {
+  width: 820px;
+  background-color: $bluegreen;
+  border-radius: 8px;
+  padding: 10px;
+  ul {
     display: flex;
     justify-content: center;
+    align-content: flex-start;
+    height: 510px;
+    overflow: auto;
     margin: auto;
     flex-wrap: wrap;
   }
 }
-@media screen and (max-width:800px ){
-  .control-nav{
+@media screen and (max-width: 800px) {
+  .control-nav {
     flex-direction: column;
   }
 }
