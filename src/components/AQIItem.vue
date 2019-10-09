@@ -47,7 +47,7 @@ export default {
     methods:{
         sendId(){
             console.log('send')
-            this.$emit('sendId',this.obj.SiteId);
+            this.$emit('sendId',this.obj.SiteId,true);
         }
     } 
 }

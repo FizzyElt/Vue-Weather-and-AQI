@@ -1,8 +1,9 @@
 <template>
   <div class="card-container">
     <div class="card">
-      <h1>{{AQIObj.County}}</h1>
+      <h1>{{AQIObj.County}} </h1>
       <h2>{{AQIObj.SiteName}}</h2>
+      <button class="close-btn" @click="$emit('close',false)"><font-awesome-icon icon="times"/></button>
       <ul>
         <li>
           <div class="value-name">
@@ -107,6 +108,9 @@ export default {
         return {};
       }
     }
+  },
+  methods:{
+
   }
 };
 </script>
@@ -117,10 +121,24 @@ h2 {
 h3 {
   font-size: 15px;
 }
-.card-container {
-  display: block;
+.close-btn{
+  display: none;
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #ff4b4b;
+  border: none;
+  color:$white;
+  right: 15px;
+  top: 15px;
+  font-size: 20px;
+}
+.close-btn:hover{
+  transform: scale(1.1);
 }
 .card {
+  position: relative;
   max-width: 380px;
   border-radius: 8px;
   padding: 10px;
@@ -164,6 +182,31 @@ ul {
   li:hover{
       background-color: #ffb13b;
       color: $navyblue;
+  }
+}
+@media screen and(max-width:1000px){
+  .card-container{
+    position: absolute;
+    background-color: rgba($color: #000000, $alpha: 0.4);
+    width: 100vw;
+    height: calc(100vh + 20px);
+    top: 0;
+    left: 0;
+  }
+  .close-btn{
+    display: block;
+  }
+  .card{
+    position: relative;
+    margin: auto;
+    top: 50%;
+    transform: translateY(-50%);
+
+  }
+}
+@media screen and(max-width:400px){
+  .card{
+    zoom: 0.8;
   }
 }
 </style>

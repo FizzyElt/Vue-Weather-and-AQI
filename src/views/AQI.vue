@@ -12,7 +12,9 @@
           <AQIItem v-for="item in AQIList" :key="item.SiteId" :obj="item" v-on:sendId="siteChange"/>
         </transition-group>
       </div>
-      <a-q-i-detail-card :AQIObj="AQIDetail" />
+      <transition name="fade">
+      <a-q-i-detail-card :AQIObj="AQIDetail" v-if="mobileCheck" v-on:close="AQICardSw"/>
+    </transition>
     </div>
   </div>
 </template>
@@ -52,6 +54,13 @@ export default {
         return this.$store.state.AQIData.find(d => d.SiteId === this.siteId);
       }
       return this.$store.state.AQIData[0];
+    },
+    mobileCheck(){
+      const width=document.documentElement.clientWidth;
+      if(width<1000){
+        return this.detailOpened
+      }
+      return true
     }
   },
   methods: {
@@ -73,15 +82,19 @@ export default {
         })
         .catch(err => {
           this.$store.commit("loadingSwich", false);
-          alert("取得資料時發生錯誤");
+          alert("取得資料時發生錯誤",err);
         });
     },
     inputChange(txt) {
       this.inputTxt = txt;
     },
-    siteChange(id){
+    siteChange(id,isOn){
       console.log('change')
       this.siteId=id;
+      this.detailOpened=isOn;
+    },
+    AQICardSw(isOn){
+      this.detailOpened=isOn;
     }
   },
   created() {
@@ -116,11 +129,23 @@ export default {
     overflow: auto;
     margin: auto;
     flex-wrap: wrap;
+    scrollbar-width: thin;
   }
 }
 @media screen and (max-width: 800px) {
   .control-nav {
     flex-direction: column;
+  }
+}
+
+@media screen and(max-width:1200px) {
+  .AQI-container{
+    max-width: 550px;
+  }
+}
+@media screen and(max-width:580px) {
+  .AQI-container{
+    max-width: 300px;
   }
 }
 </style>

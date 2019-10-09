@@ -6,6 +6,16 @@
   font-family: 'Noto Sans TC', sans-serif;
   list-style: none;
 }
+::-webkit-scrollbar{
+  width:10px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb{
+  cursor: pointer;
+  background-color: #363636;
+  border-radius: 5px;
+}
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s;

@@ -7,11 +7,11 @@ import VueAxios from 'vue-axios'
 import VueJsonp from 'vue-jsonp'
 import './scss/common.scss'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCloudSun, faTemperatureHigh, faSun, faChevronRight, faChevronLeft, faBars } from '@fortawesome/free-solid-svg-icons'
+import { faCloudSun, faTemperatureHigh, faSun, faChevronRight, faChevronLeft, faBars, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 
-library.add( faCloudSun, faTemperatureHigh, faSun, faChevronRight, faChevronLeft,faBars);
+library.add( faCloudSun, faTemperatureHigh, faSun, faChevronRight, faChevronLeft,faBars,faTimes);
 Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);
 Vue.use(VueJsonp);
