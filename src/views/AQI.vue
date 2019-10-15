@@ -9,12 +9,11 @@
     <div class="main-content">
       <div class="AQI-container">
         <transition-group name="scale" tag="ul">
-          <AQIItem v-for="item in AQIList" :key="item.SiteId" :obj="item" v-on:sendId="siteChange"/>
+          <AQIItem v-for="item in AQIList" :key="item.SiteId" :obj="item" v-on:sendId="siteChange" />
         </transition-group>
       </div>
 
-      <a-q-i-detail-card :AQIObj="AQIDetail" :toggle="mobileCheck" v-on:close="AQICardSw"/>
-
+      <a-q-i-detail-card :AQIObj="AQIDetail" :toggle="mobileCheck" v-on:close="AQICardSw" />
     </div>
   </div>
 </template>
@@ -55,12 +54,12 @@ export default {
       }
       return this.$store.state.AQIData[0];
     },
-    mobileCheck(){
-      const width=document.documentElement.clientWidth;
-      if(width<1000){
-        return this.detailOpened
+    mobileCheck() {
+      const width = document.documentElement.clientWidth;
+      if (width < 1000) {
+        return this.detailOpened;
       }
-      return true
+      return true;
     }
   },
   methods: {
@@ -82,22 +81,24 @@ export default {
         })
         .catch(err => {
           this.$store.commit("loadingSwich", false);
-          alert("取得資料時發生錯誤",err);
+          alert("取得資料時發生錯誤", err);
         });
     },
     inputChange(txt) {
       this.inputTxt = txt;
     },
-    siteChange(id,isOn){
-      this.siteId=id;
+    siteChange(id, isOn) {
+      this.siteId = id;
       this.AQICardSw(isOn);
     },
-    AQICardSw(isOn){
-      this.detailOpened=isOn;
+    AQICardSw(isOn) {
+      this.detailOpened = isOn;
     }
   },
   created() {
-    this.getAQIData();
+    if (this.$store.state.AQIData.length===0) {
+      this.getAQIData();
+    }
   }
 };
 </script>
@@ -108,8 +109,8 @@ export default {
   align-items: center;
   justify-content: center;
 }
-.main-content{
-  max-width:1300px;
+.main-content {
+  max-width: 1300px;
   margin: auto;
   display: flex;
   align-items: flex-start;
@@ -138,12 +139,12 @@ export default {
 }
 
 @media screen and(max-width:1200px) {
-  .AQI-container{
+  .AQI-container {
     max-width: 550px;
   }
 }
 @media screen and(max-width:580px) {
-  .AQI-container{
+  .AQI-container {
     max-width: 300px;
   }
 }
