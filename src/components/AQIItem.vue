@@ -22,7 +22,8 @@ export default {
             default:function(){
                 return {}
             }
-        }
+        },
+        
     } ,
     computed:{
         colorCheck(){
@@ -46,7 +47,6 @@ export default {
     } ,
     methods:{
         sendId(){
-            console.log('send')
             this.$emit('sendId',this.obj.SiteId,true);
         }
     } 

@@ -29,7 +29,7 @@ export default {
     };
   },
   computed: {
-    locationListData() {
+    locationListData() {  //獲取城市列表資料
       const list = this.$store.state.weatherData.map(data => {
         const minT = data.weatherElement.find(t => {
           return t.elementName === "MinT";
@@ -56,7 +56,7 @@ export default {
     }
   },
   methods: {
-    listBtn() {
+    listBtn() { //手機板收合按鈕
       this.mobileSw = !this.mobileSw;
     }
   }

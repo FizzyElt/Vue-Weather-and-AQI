@@ -12,9 +12,9 @@
           <AQIItem v-for="item in AQIList" :key="item.SiteId" :obj="item" v-on:sendId="siteChange"/>
         </transition-group>
       </div>
-      <transition name="fade">
-      <a-q-i-detail-card :AQIObj="AQIDetail" v-if="mobileCheck" v-on:close="AQICardSw"/>
-    </transition>
+
+      <a-q-i-detail-card :AQIObj="AQIDetail" :toggle="mobileCheck" v-on:close="AQICardSw"/>
+
     </div>
   </div>
 </template>
@@ -89,9 +89,8 @@ export default {
       this.inputTxt = txt;
     },
     siteChange(id,isOn){
-      console.log('change')
       this.siteId=id;
-      this.detailOpened=isOn;
+      this.AQICardSw(isOn);
     },
     AQICardSw(isOn){
       this.detailOpened=isOn;
