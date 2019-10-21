@@ -8,7 +8,7 @@ export default new Vuex.Store({
     isLoading:true,
     weatherToken:'CWB-7119ECA8-257C-4ECF-ADF1-86E97EAE5463',
     weatherData:[],
-    currentLocation:"臺北市",
+    currentLocationId:1,
     AQIData:[]
   },
   mutations: {
@@ -21,8 +21,8 @@ export default new Vuex.Store({
     loadingSwich(state,sw=true){
       state.isLoading=sw;
     },
-    locationChange(state,name=''){
-      state.currentLocation=name;
+    locationChange(state,id=1){
+      state.currentLocationId=id;
     }
   },
   actions: {

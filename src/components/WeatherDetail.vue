@@ -4,24 +4,30 @@ export default {
   components: {
     IntervalContent
   },
-  data(){
-    return{
-      datalocation:'',
-      datalist:[]
-    }
+  data() {
+    return {
+      datalist: []
+    };
   },
   computed: {
-    location() {
-      return this.$store.state.currentLocation;
+    location() {  //獲取城市名稱
+      if (this.$store.state.isLoading) {
+        return
+      }else{
+        const name = this.$store.state.weatherData.find(
+          res => res.siteId === this.$store.state.currentLocationId
+        );
+        return name.locationName;
+        }
     },
-    dataList() {
+    dataList() { //獲取城市各時段資料
       if (this.$store.state.isLoading) {
         return;
       } else {
-        const eleList = ["MinT", "MaxT", "PoP", "CI", "Wx"];
-        const name = this.$store.state.currentLocation;
-        const locationData = this.$store.state.weatherData.find(res=>{
-          return res.locationName === name;
+        const eleList = ["MinT", "MaxT", "PoP", "CI", "Wx"]; //需獲取元素名稱列表
+        const Id = this.$store.state.currentLocationId;
+        const locationData = this.$store.state.weatherData.find(res => {
+          return res.siteId === Id;
         });
         let list = [];
         for (let i = 0; i < 3; i++) {
@@ -32,7 +38,7 @@ export default {
             ),
             eTime: locationData.weatherElement[0].time[i].endTime.slice(5, 16)
           };
-          eleList.forEach(data=> {
+          eleList.forEach(data => {
             obj[data] = this.itemDataFilter(
               data,
               locationData.weatherElement,
@@ -47,18 +53,14 @@ export default {
   },
   methods: {
     itemDataFilter(name = "", data = [], time = 0) {
-      const obj = data.find(res=> {
+      const obj = data.find(res => {
         return res.elementName === name;
       });
       const eleValue = obj.time[time].parameter.parameterName;
       return eleValue;
     },
-    getlocation(){
-      this.datalocation=this.$store.state.currentLocation;
-    }
   },
-  mounted(){
-    this.getlocation();
+  mounted() {
   }
 };
 </script>
@@ -103,8 +105,8 @@ export default {
   justify-content: space-between;
   max-width: 630px;
 }
-@media screen and (max-width:1200px) {
-  .weather-list-container{
+@media screen and (max-width: 1200px) {
+  .weather-list-container {
     max-width: 315px;
   }
 }

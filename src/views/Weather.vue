@@ -8,6 +8,31 @@ export default {
     NavBar,
     LocationList,
     WeatherDetail
+  },
+   methods: {
+    getWeatherData() {
+      const url =
+        "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=" +
+        this.$store.state.weatherToken;
+      this.axios
+        .get(url)
+        .then(res => {
+          this.$store.commit("weatherDataUpdate", res.data.records.location.map((d,i)=>{
+            return {
+              ...d,
+              siteId:i
+            }
+            }));
+          this.$store.commit('loadingSwich',false);
+        })
+        .catch(err => {
+          alert("取得資料時發生錯誤");
+          this.$store.commit('loadingSwich',false);
+        });
+    }
+  },
+  created() {
+    this.getWeatherData();
   }
 }
 </script>

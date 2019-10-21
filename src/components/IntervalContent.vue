@@ -8,7 +8,7 @@
   </div>
 </template>
 <script>
-export default {
+export default { //每個時段的內容
   props: {
     startTime:{
       type:String,

@@ -123,7 +123,7 @@ export default {
     }
   },
   methods: {
-    AQIColorCheck(value) {
+    AQIColorCheck(value) {  //空氣品質顏色判斷
       if (value > 0 && value <= 50) {
         return "green";
       } else if (value >= 51 && value <= 100) {

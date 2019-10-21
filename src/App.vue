@@ -13,27 +13,6 @@
 </template>
 <script>
 export default {
-  
-  methods: {
-    getWeatherData() {
-      const url =
-        "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=" +
-        this.$store.state.weatherToken;
-      this.axios
-        .get(url)
-        .then(res => {
-          this.$store.commit("weatherDataUpdate", res.data.records.location);
-          this.$store.commit('loadingSwich',false);
-        })
-        .catch(err => {
-          alert("取得資料時發生錯誤");
-          this.$store.commit('loadingSwich',false);
-        });
-    }
-  },
-  created() {
-    this.getWeatherData();
-  }
 };
 </script>
 <style lang="scss" scoped>

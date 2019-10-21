@@ -14,7 +14,6 @@ export default new Router({
       path: '/weather',
       name: 'weather',
       component:Weather,
-      
     },
     {
       path: '/AQI',

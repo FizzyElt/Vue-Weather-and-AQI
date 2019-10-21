@@ -18,17 +18,22 @@ export default {
         maxT:{
             type:String,
             default:"0"
+        },
+        siteId:{
+            type:Number,
+            default:1
         }
     },
     computed:{
         itemActive(){
-            const location=this.$store.state.currentLocation;
-            return this.locationName===location;
+            const location=this.$store.state.currentLocationId;
+            return this.siteId===location;
         }
     },
     methods:{
         locationHandler(){ //城市切換
-            this.$store.commit('locationChange',this.locationName);
+            this.$store.commit('locationChange',this.siteId);
+            this.$emit('close')
         }
     }
     
@@ -61,5 +66,4 @@ export default {
         color:$navyblue;
     }
 }
-
 </style>

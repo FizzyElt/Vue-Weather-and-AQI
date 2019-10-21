@@ -1,6 +1,7 @@
 <template>
   <transition name="fade2" appear>
     <div class="mobile" :class="{'list-active':screenWidth}">
+      <div class="container">
       <ul class="location-list">
         <location-item
           v-for="item in locationListData"
@@ -8,8 +9,11 @@
           :locationName="item.location"
           :maxT="item.maxT"
           :minT="item.minT"
+          :siteId="item.siteId"
+          v-on:close="listBtn"
         />
       </ul>
+      </div>
       <button class="mobile-btn" @click="listBtn()">
         <font-awesome-icon :icon="['fas',mobileSw?'chevron-left':'chevron-right']"/>
       </button>
@@ -40,7 +44,8 @@ export default {
         return {
           location: data.locationName,
           minT: minT,
-          maxT: maxT
+          maxT: maxT,
+          siteId:data.siteId
         };
       });
 
@@ -64,14 +69,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.container{
+  padding: 20px;
+  background-color: $babyblue;
+  border-radius: 8px;
+  max-width: 820px;
+}
 .location-list {
   position: relative;
-  border-radius: 8px;
-  background-color: $babyblue;
   display: flex;
   flex-wrap: wrap;
-  padding: 20px;
-  max-width: 820px;
 }
 .mobile {
   position: relative;
@@ -91,19 +98,26 @@ export default {
 }
 
 @media screen and (max-width: 1500px) {
-  .location-list {
+  .container {
     max-width: 560px;
   }
 }
 @media screen and (max-width: 600px) {
+  .container{
+  background-color: $babyblue;
+  border-radius: 8px;
+  height: 80vh;
+  overflow: auto;
+  padding: 10px;
+}
   .location-list {
-    max-width: 300px;
+    max-width: 260px;
     justify-content: stretch;
     position: relative;
-    height: 80vh;
-    overflow: auto;
     top: 0px;
     left: 0;
+    padding: 0;
+    overflow: hidden;
   }
   .mobile {
     position: absolute;
@@ -112,6 +126,7 @@ export default {
     transform: translateX(-100%);
     transition: 0.3s;
     z-index: 50;
+    height: 80vh;
   }
   .mobile-btn{
     display: block;
