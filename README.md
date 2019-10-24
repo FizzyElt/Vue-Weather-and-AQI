@@ -12,7 +12,8 @@ RWD調整、過場動畫應用
 ## Demo
 https://fizzyelt.github.io/vueweatheraqi/dist/
 
-
+## SPA樹狀圖
+<img src="./VueWeatherAQI.png">
 
 ## Project setup
 ```
