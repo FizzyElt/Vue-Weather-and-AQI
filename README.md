@@ -1,4 +1,4 @@
-# vueweatheraqi
+# Vue Weather and AQI
 
 氣象與空氣品質重製版
 
