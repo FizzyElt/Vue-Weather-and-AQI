@@ -10,7 +10,7 @@ RWD調整、過場動畫應用
 空氣品質的API在手機上送請求可能會有不安全瀏覽的問題導致畫面無法正常顯示
 
 ## Demo
-https://fizzyelt.github.io/vueweatheraqi/dist/
+https://fizzyelt.github.io/Vue-Weather-and-AQI/dist/
 
 ## SPA樹狀圖
 <img src="./VueWeatherAQI.png">
